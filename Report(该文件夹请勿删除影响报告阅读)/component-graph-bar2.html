@@ -1,0 +1,140 @@
+﻿<div style="width:650px; height:225px;margin-top:20px;margin-bottom:20px;" class="graphBar">
+    <!-- 横线 -->
+    <div class="hline" style="width:600px;top:5px; left:50px;"></div>
+    <div class="hline" style="width:600px; top: 60px;left:50px;"></div>
+    <div class="hline" style="width:600px; top: 115px;left:50px;"></div>
+    <div class="hline" style="width:600px; top: 170px;left:50px;"></div>
+    <div class="hline" style="width:600px; top: 225px;left:50px;"></div>
+
+    <!-- 纵线 -->
+    <div class="vline" style="height:220px;left:80px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:140px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:200px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:260px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:320px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:380px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:440px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:500px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:560px;top:5px;"></div>
+    <div class="vline" style="height:220px;left:620px;top:5px;"></div>
+
+    <!-- 虚线 -->
+    <div data-bind="style:{ top: (height - totalCopyPercent* yscale) + 'px' }" style="width: 600px;left: 50px;border-bottom: dashed 1px #ddd;background-color: none;height: 0px;"></div>
+    <span data-bind="style:{ top: (height - totalCopyPercent* yscale - 10) + 'px'}, text: totalCopyPercent + '%'" style="left: 625px;"></span>
+
+
+    <!-- y轴刻度 -->
+    <!-- ko foreach: yarray -->
+    <span class="ylabel" data-bind="text:$data + '%' , style:{ top: ($parent.height - $parent.baseY* $parent.yscale * (4-$index()) - 5) + 'px' }"></span>
+    <!-- /ko -->
+    <!-- 参考文献相似比 -->
+    <div class="bg-reference bar"
+         style="left:80px;"
+         data-bind="style:{
+            height: referenceCopyPercent * yscale + 'px',
+            top: (height - totalCopyPercent * yscale) + 'px'}"></div>
+    <div class="bg-others bar"
+         style="left:80px;"
+         data-bind="style:{
+            height: (totalCopyPercent - referenceCopyPercent) * yscale + 'px',
+            top: (height - (totalCopyPercent - referenceCopyPercent) * yscale) + 'px'}"></div>
+
+    <!-- 本人已发表论文相似比 -->
+    <div class="bg-published bar"
+         style="left:260px;"
+         data-bind="style:{
+            height: publishedCopyPercent * yscale + 'px',
+            top: (height - totalCopyPercent * yscale) + 'px'}"></div>
+    <div class="bg-others bar"
+         style="left:260px;"
+         data-bind="style:{
+            height: (totalCopyPercent - publishedCopyPercent) * yscale + 'px',
+            top: (height - (totalCopyPercent - publishedCopyPercent) * yscale) + 'px'}"></div>
+
+    <!-- 本人学位论文相似比 -->
+    <!-- ko if:withDegree -->
+    <div class="bg-degree bar"
+         style="left:440px;"
+         data-bind="style:{
+            height: degreeCopyPercent * yscale + 'px',
+            top: (height - totalCopyPercent * yscale) + 'px'}"></div>
+    <div class="bg-others bar"
+         style="left:440px;"
+         data-bind="style:{
+            height: (totalCopyPercent - degreeCopyPercent) * yscale + 'px',
+            top: (height - (totalCopyPercent - degreeCopyPercent) * yscale) + 'px'}"></div>
+    <!-- /ko -->
+    <!-- 参考文献相似比 -->
+    <span class="glyphicon glyphicon-arrow-left label-arrow"
+          style="left: 145px;"
+          data-bind="style:{top: (height - (totalCopyPercent - referenceCopyPercent/2) * yscale - 5) + 'px'}"></span>
+    <div class="label-block" style="left: 150px;height:40px;"
+         data-bind="style:{top: (height - (totalCopyPercent - referenceCopyPercent/2) * yscale - 17) + 'px'}">
+        参考文献相似比
+        <br />
+        <div data-bind="text: referenceCopyPercent + '%'"></div>
+    </div>
+
+    <span class="glyphicon glyphicon-arrow-left label-arrow"
+          style="left: 145px;"
+          data-bind="style:{top: (height - ((totalCopyPercent - referenceCopyPercent)/2) * yscale - 5) + 'px'}"></span>
+    <div class="label-block"
+         style="left: 150px;height:60px;"
+         data-bind="style:{top: (height - ((totalCopyPercent - referenceCopyPercent)/2) * yscale - 18) + 'px'}">
+        辅助排除参考文<br />献相似比
+        <br />
+        <div data-bind="text: (totalCopyPercent - referenceCopyPercent).toFixed(2) + '%'"></div>
+    </div>
+
+    <!-- 本人已发表论文相似比 -->
+    <span class="glyphicon glyphicon-arrow-left label-arrow" style="left: 325px;"
+          data-bind="style:{top: (height - (totalCopyPercent - publishedCopyPercent/2) * yscale - 5) + 'px'}"></span>
+    <div class="label-block" style="left: 330px;height:60px;"
+         data-bind="style:{top: (height - (totalCopyPercent - publishedCopyPercent/2) * yscale - 18) + 'px'}">
+        可能引用本人已
+        <br />
+        发表论文相似比
+        <br />
+        <div data-bind="text: publishedCopyPercent + '%'"></div>
+    </div>
+
+    <span class="glyphicon glyphicon-arrow-left label-arrow" style="left: 325px;"
+          data-bind="style:{top: (height - ((totalCopyPercent - publishedCopyPercent)/2) * yscale - 5) + 'px'}"></span>
+    <div class="label-block" style="left: 330px;height:60px;"
+         data-bind="style:{top: (height - ((totalCopyPercent - publishedCopyPercent)/2) * yscale - 18) + 'px'}">
+        辅助排除本人已
+        <br />
+        发表论文相似比
+        <br />
+        <div data-bind="text: (totalCopyPercent - publishedCopyPercent).toFixed(2) + '%'"></div>
+
+
+    </div>
+
+    <!-- 本人学位论文相似比 -->
+    <!-- ko if:withDegree -->
+    <span class="glyphicon glyphicon-arrow-left label-arrow" style="left: 505px;"
+          data-bind="style:{top: (height - (totalCopyPercent - degreeCopyPercent/2) * yscale - 5) + 'px'}"></span>
+    <div class="label-block" style="left: 510px;height:60px;"
+         data-bind="style:{top: (height - (totalCopyPercent - degreeCopyPercent/2) * yscale - 18) + 'px'}">
+        可能引用本人学
+        <br />
+        位论文相似比
+        <br />
+        <div data-bind="text: degreeCopyPercent + '%'"></div>
+
+    </div>
+
+    <span class="glyphicon glyphicon-arrow-left label-arrow" style="left: 505px;"
+          data-bind="style:{top: (height - ((totalCopyPercent - degreeCopyPercent)/2) * yscale - 5) + 'px'}"></span>
+    <div class="label-block" style="left: 510px;height:60px;"
+         data-bind="style:{top: (height - ((totalCopyPercent - degreeCopyPercent)/2) * yscale - 18) + 'px'}">
+        辅助排除本人学
+        <br />
+        位论文相似比
+        <br />
+        <div data-bind="text: (totalCopyPercent - degreeCopyPercent).toFixed(2) + '%'"></div>
+
+    </div>
+    <!-- /ko -->
+</div>
